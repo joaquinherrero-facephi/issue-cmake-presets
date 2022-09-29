@@ -1,0 +1,24 @@
+cmake_minimum_required(VERSION 3.16)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(TARGET_NAME hello)
+project(${TARGET_NAME} LANGUAGES C CXX)
+
+list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build")
+list(PREPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build")
+
+add_library(${TARGET_NAME})
+
+file(GLOB_RECURSE TARGET_SOURCES
+    "${CMAKE_CURRENT_SOURCE_DIR}/hello.cpp")
+
+target_include_directories(${TARGET_NAME}
+    PUBLIC
+        "${CMAKE_CURRENT_SOURCE_DIR}")
+
+target_sources(${TARGET_NAME}
+    PRIVATE
+        ${TARGET_SOURCES})
+
