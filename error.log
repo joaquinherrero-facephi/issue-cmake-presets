@@ -1,0 +1,83 @@
+$ ./run.sh
+Exporting package recipe
+hello/1.0.0: Calling export_sources()
+hello/1.0.0 export_sources() method: Copied 1 '.h' file: hello.h
+hello/1.0.0 export_sources() method: Copied 1 '.cpp' file: hello.cpp
+hello/1.0.0 export_sources() method: Copied 1 '.txt' file: CMakeLists.txt
+hello/1.0.0: A new conanfile.py version was exported
+hello/1.0.0: Folder: C:\Users\joaquinherrero\.conan\data\hello\1.0.0\_\_\export
+hello/1.0.0: Using the exported files summary hash as the recipe revision: 6e66b54a72edf10b2610f9ebff57a5c0
+hello/1.0.0: Package recipe modified in export, forcing source folder removal
+hello/1.0.0: Use the --keep-source, -k option to skip it
+hello/1.0.0: Exported revision: 6e66b54a72edf10b2610f9ebff57a5c0
+Configuration (profile_host):
+[settings]
+arch=x86_64
+arch_target=x86_64
+build_type=Release
+compiler=Visual Studio
+compiler.cppstd=17
+compiler.runtime=MD
+compiler.toolset=v142
+compiler.version=16
+os=Windows
+os_target=Windows
+[options]
+*:shared=False
+[build_requires]
+[env]
+[conf]
+tools.cmake.cmaketoolchain:generator=Ninja Multi-Config
+
+Configuration (profile_build):
+[settings]
+arch=x86_64
+arch_target=x86_64
+build_type=Release
+compiler=Visual Studio
+compiler.cppstd=17
+compiler.runtime=MD
+compiler.toolset=v142
+compiler.version=16
+os=Windows
+os_target=Windows
+[options]
+*:shared=False
+[build_requires]
+[env]
+[conf]
+tools.cmake.cmaketoolchain:generator=Ninja Multi-Config
+
+hello/1.0.0: Forced build from source
+conanfile.py (app/1.0.0): Installing package
+Requirements
+    hello/1.0.0 from local cache - Cache
+Packages
+    hello/1.0.0:f26537b056c9ff213dcc2874372b233408a3e04e - Build
+
+Installing (downloading, building) binaries...
+hello/1.0.0: WARN: Build folder is dirty, removing it: C:\Users\joaquinherrero\.conan\data\hello\1.0.0\_\_\build\f26537b056c9ff213dcc2874372b233408a3e04e
+hello/1.0.0: Configuring sources in C:\Users\joaquinherrero\.conan\data\hello\1.0.0\_\_\source\.
+hello/1.0.0: Copying sources to build folder
+hello/1.0.0: Building your package in C:\Users\joaquinherrero\.conan\data\hello\1.0.0\_\_\build\f26537b056c9ff213dcc2874372b233408a3e04e
+hello/1.0.0: Generator 'CMakeDeps' calling 'generate()'
+hello/1.0.0: Calling generate()
+hello/1.0.0: Aggregating env generators
+hello/1.0.0: Calling build()
+**********************************************************************
+** Visual Studio 2019 Developer Command Prompt v16.11.5
+** Copyright (c) 2021 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x64'
+**********************************************************************
+** Visual Studio 2019 Developer Command Prompt v16.11.5
+** Copyright (c) 2021 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x64'
+CMake Error: Could not read presets from C:/Users/joaquinherrero/.conan/data/hello/1.0.0/_/_/build/f26537b056c9ff213dcc2874372b233408a3e04e: Unrecognized "version" field
+hello/1.0.0:
+hello/1.0.0: ERROR: Package 'f26537b056c9ff213dcc2874372b233408a3e04e' build failed
+hello/1.0.0: WARN: Build folder C:\Users\joaquinherrero\.conan\data\hello\1.0.0\_\_\build\f26537b056c9ff213dcc2874372b233408a3e04e\build
+ERROR: hello/1.0.0: Error in build() method, line 68
+        self.run(cmd_cmake_config)
+        ConanException: Error 1 while executing cmake --preset default
