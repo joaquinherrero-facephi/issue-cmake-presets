@@ -1,5 +1,5 @@
 from conans import ConanFile, tools
-from conan.tools.cmake import CMakeToolchain, cmake_layout
+from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 from configparser import ConfigParser
 from os import path, remove
 from shutil import which
@@ -26,7 +26,6 @@ class ConanFileClass(ConanFile):
         "shared": False,
         "fPIC": True,
     }
-    generators = ["CMakeDeps"]
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -43,30 +42,22 @@ class ConanFileClass(ConanFile):
         toolchain_path = path.join(self.build_folder, "conan_toolchain.cmake")
         if path.exists(toolchain_path):
             remove(toolchain_path)
-
-        tc = CMakeToolchain(self)
+        generator = self.conf.get("tools.cmake.cmaketoolchain:generator", default="Ninja Multi-Config")
+        tc = CMakeToolchain(self, generator=generator)
         tc.generate()
 
     def export_sources(self):
-        self.copy("*.h")
-        self.copy("*.cpp")
+        self.copy("hello.h")
+        self.copy("hello.cpp")
         self.copy("CMakeLists.txt")
 
     def build(self):
-        generator = self.conf.get("tools.cmake.cmaketoolchain:generator", default="Ninja Multi-Config")
-        lower_build_type = str(self.settings.build_type).lower()
-
-        env_vars = {}
-
-        # Explicitly add vcvars to the environment. Do not known why is automatically done before calling build() on conan side
-        if self.settings.os == "Windows":
-            env_vars = tools.vcvars_dict(self)
-
-        with tools.environment_append(env_vars):
-            with tools.chdir(self.source_folder):
-                cmd_cmake_config = f"cmake --preset {lower_build_type}" if generator == "Unix Makefiles" else "cmake --preset default"
-                self.run(cmd_cmake_config)
-                self.run(f"cmake --build --preset {lower_build_type}")
+        # For environment management see:
+        # https://docs.conan.io/en/1.52/migrating_to_2.0/recipes.html#the-environment-management
+        cmake = CMake(self)
+        print(f"GENERATOR: {cmake._generator}")
+        cmake.configure()
+        cmake.build()
 
     def package(self):
         self.copy("*.h", dst="include")
